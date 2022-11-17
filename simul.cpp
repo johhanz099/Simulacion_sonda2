@@ -32,13 +32,14 @@ void uptade(cuerpos & Nbody){
         }
         //Actualizar posicion y velocidad
         Nbody[ii].leap_frog(DT);
-
     }
-    trans_galileo(Nbody);
-        //Imprimir resultados
+}
+
+void print(cuerpos & Nbody){
+    int N = Nbody.size();
+    //Imprimir resultados
     for(int ii = 0; ii < N; ii++){
         std::cout << Nbody[ii].R.x << "," << Nbody[ii].R.y <<  ",";
     }
     std::cout << "\n";
 }
-
