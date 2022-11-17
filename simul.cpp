@@ -1,27 +1,44 @@
 #include "declarations.h"
 
-void force(Planeta & body1, Planeta & body2){
-
-    body1.Aaux = body1.F/body1.mass;
-    body2.Aaux = body2.F/body2.mass;
-
-    Vec3D r;
-    // direccion de la fuerza m1->m2
-    r = body2.R - body1.R;
-    //norma
-    double r_norm = std::pow((r.x*r.x)+(r.y*r.y)+(r.z*r.z), -1.5);
-
-    double esc = G*body1.mass*body2.mass*r_norm; 
- 
-    // Fuerza
-    body1.F = r*esc;
-    body2.F = r*(-esc);
+void trans_galileo(cuerpos & Nbody){
+    int N = Nbody.size();
+    for(int ii = 0; ii < N; ++ii){
+        Nbody[ii].R = Nbody[ii].R - Nbody[N-1].R;
+        Nbody[ii].V = Nbody[ii].V - Nbody[N-1].V;
+    }
 }
 
-void print(Planeta & body1, Planeta & body2, double time){
-    std::cout << time << ","
-        << body1.R.x << ","
-        << body2.R.x << ","
-        << body1.R.y << ","
-        << body2.R.y << "\n";
+void uptade(cuerpos & Nbody){
+    int N = Nbody.size();
+
+    //Reiniciar fuerzas
+    for(int ii = 0; ii < N; ii++){
+        Nbody[ii].F.x = Nbody[ii].F.y = Nbody[ii].F.z = 0.0;
+    }
+    //Calcular fuerza
+    for(int ii = 0; ii < N; ii++){
+        for(int jj = 0; jj < N; jj++){
+            if(ii != jj){
+                Vec3D r;
+                // direccion de la fuerza m1->m2
+                r = Nbody[jj].R - Nbody[ii].R;
+                //norma
+                double r_norm = std::pow((r.x*r.x)+(r.y*r.y)+(r.z*r.z), -1.5);
+
+                // Fuerza
+                double esc = G*Nbody[ii].mass*Nbody[jj].mass*r_norm; 
+                Nbody[ii].F = Nbody[ii].F + r*esc;
+            }
+        }
+        //Actualizar posicion y velocidad
+        Nbody[ii].leap_frog(DT);
+
+    }
+    trans_galileo(Nbody);
+        //Imprimir resultados
+    for(int ii = 0; ii < N; ii++){
+        std::cout << Nbody[ii].R.x << "," << Nbody[ii].R.y <<  ",";
+    }
+    std::cout << "\n";
 }
+

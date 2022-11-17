@@ -1,21 +1,11 @@
 #pragma once // avoids multiple inclusions
-#include <iostream>
-#include <vector>
 
-
-typedef std::vector<double> vec; //Nombre para vector
-
-#include<iostream>
 struct Vec3D
 {
     double x, y, z;
     //Constructor
     Vec3D(){
         x = 0.0; y = 0.0; z = 0.0;
-    }
-    //Print vector
-    void print(){
-        std::cout << "(" << x << ", " << y << ", " << z << ")" << "\n";
     }
     //Overloading operator +
     Vec3D operator+(const Vec3D &v){
@@ -51,7 +41,7 @@ struct Vec3D
     }
 };
 
-struct Planeta
+struct Cuerpo
 {
     //Radio
     double rad = 0.0;
@@ -69,7 +59,7 @@ struct Planeta
     Vec3D E;
 
     //Constructor condiciones iniciales
-    Planeta(double x0, double y0, double z0, double Vx0, double Vy0, double Vz0, double m){
+    Cuerpo(double x0, double y0, double z0, double Vx0, double Vy0, double Vz0, double m){
         this -> mass = m;
         this -> R.x = x0;
         this -> R.y = y0;
