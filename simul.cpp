@@ -8,7 +8,7 @@ void trans_galileo(cuerpos & Nbody){
     }
 }
 
-void uptade(cuerpos & Nbody){
+void force(cuerpos & Nbody){
     int N = Nbody.size();
 
     //Reiniciar fuerzas
@@ -25,7 +25,7 @@ void uptade(cuerpos & Nbody){
                 //norma
                 double r_norm = std::pow((r.x*r.x)+(r.y*r.y)+(r.z*r.z), -1.5);
 
-                // Fuerza
+                // Fuerza - Ley de gravitacion universal
                 double esc = G*Nbody[ii].mass*Nbody[jj].mass*r_norm; 
                 Nbody[ii].F = Nbody[ii].F + r*esc;
             }
