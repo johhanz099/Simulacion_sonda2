@@ -43,15 +43,15 @@ struct Vec3D
 
 struct Cuerpo
 {
-    //Radio
+    //Ratio
     double rad = 0.0;
-    //Masa
+    //Mass
     double mass = 0.0;
-    //Energia
+    //Energy
     double E = 0.0;
-    //Posicion, Velocidad, Fuerza
+    //Position, Velocity and Force
     Vec3D R, V, F;
-    //Constructor condiciones iniciales
+    //Constructor - Initial conditions
     Cuerpo(double x0, double y0, double z0, double Vx0, double Vy0, double Vz0, double m){
         this -> mass = m;
         this -> R.x = x0;
